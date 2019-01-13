@@ -71,6 +71,9 @@ typings/
 # output dir
 dist
 
+# ncc build dir
+ncc
+
 # vuepress build output
 .vuepress/dist
 
