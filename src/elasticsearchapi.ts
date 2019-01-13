@@ -1,5 +1,5 @@
 import elasticsearch from 'elasticsearch'
-import { ELASTIC_SEARCH_URL, ELASTIC_SEARCH_INDEX} from './config'
+import { ELASTIC_SEARCH_URL, ELASTIC_SEARCH_INDEX } from './config'
 
 const client = new elasticsearch.Client({
   host: ELASTIC_SEARCH_URL
@@ -11,10 +11,13 @@ export default async function getPlayResultJSON() {
       index: ELASTIC_SEARCH_INDEX,
       body: {
         sort: { '@timestamp': { order: 'desc' } },
-        size: 5,
+        size: 10,
         _source: [
+          'user.name',
+          'user.description',
           'entities.media.display_url',
           'entities.media.media_url_https',
+          'created_at',
           'text'
         ],
         aggs: {},

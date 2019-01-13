@@ -1,5 +1,4 @@
-
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv'
 dotenv.config()
 
 export const ELASTIC_SEARCH_URL = process.env.ELASTIC_SEARCH_URL
