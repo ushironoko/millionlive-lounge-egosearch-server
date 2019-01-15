@@ -13,7 +13,13 @@ export default async function postDiscord(
         const url: string = String(DISCORD_WEBHOOK_URL)
         const json: {} = {
           username: x._source.user.name,
-          content: x._source.text
+          content: `${x._source.text}
+          ${
+            x._source.entities.urls.length != 0
+              ? x._source.entities.urls[0].display_url
+              : ''
+          }
+          `
         }
         const options: {} = { 'Content-Type': 'application/json', json }
 
@@ -28,7 +34,6 @@ export default async function postDiscord(
             return error
           }
         })
-        console.log(msg)
       })
     ).catch(x => console.log(x))
     return 'complete'

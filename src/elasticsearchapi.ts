@@ -11,12 +11,11 @@ export default async function getPlayResultJSON() {
       index: ELASTIC_SEARCH_INDEX,
       body: {
         sort: { '@timestamp': { order: 'desc' } },
-        size: 10,
+        size: 100,
         _source: [
           'user.name',
           'user.description',
-          'entities.media.display_url',
-          'entities.media.media_url_https',
+          'entities.urls',
           'created_at',
           'text'
         ],

@@ -1,13 +1,20 @@
 import { SearchResponse } from 'elasticsearch'
+import compile from './compile'
 
 export default async function filter(data: SearchResponse<any> | undefined) {
-  if (typeof data === 'undefined') {
+  if (typeof data === 'undefined' || data.hits.hits.length === 0) {
     throw new Error('data is undefined')
   } else {
-    const filterWord = 'ミリシタ'
+    let filterWord = [['ミリオン'], ['ミリシタ'], ['担当'], ['ミリ']]
+    const matcher = await compile(filterWord)
 
     data.hits.hits = data.hits.hits.filter(el => {
-      return el._source.user.description.indexOf(filterWord) != -1
+      let result: boolean = false
+
+      if (el._source.user.description) {
+        result = matcher.test(el._source.user.description)
+      }
+      return result
     })
 
     return data
