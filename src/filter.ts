@@ -5,7 +5,7 @@ export default async function filter(data: SearchResponse<any> | undefined) {
   if (typeof data === 'undefined' || data.hits.hits.length === 0) {
     throw new Error('data is undefined')
   } else {
-    let filterWord = [['ミリオン'], ['ミリシタ'], ['担当'], ['ミリ']]
+    let filterWord = [['ミリオン'], ['ミリシタ'],['アイマス'],['アイドルマスター'],['ミリオンライブ']]
     const matcher = await compile(filterWord)
 
     data.hits.hits = data.hits.hits.filter(el => {
